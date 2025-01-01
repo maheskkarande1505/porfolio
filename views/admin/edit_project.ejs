@@ -1,0 +1,30 @@
+<%- include("navbar.ejs") %>
+<form action="/admin/update_project" method="post" enctype="multipart/form-data">
+    <div class="container bg-dark text-white mt-5">
+        <h1>Edit Project</h1>
+        <div class="row">
+            <input type="hidden" name="project_id" value="<%-projects.project_id%>">
+            <div class="col-md-2 mb-4">
+                <label class="label">Select Projetc Photo</label>
+                <input type="file" class="form-control" name="project_photo">
+            </div>
+            <div class="col-lg-2 mb-4 mt-3">
+                <img src="/<%-projects.project_photo%>" class="w-75 h-75">
+            </div>
+            <div class="col-md-4 mb-4">
+                <label class="label">Enter Project Name </label>
+                <input type="text" class="form-control" name="project_name" value="<%-projects.project_name%>" required>    
+            </div>
+            <div class="col-md-4 mb-4">
+                <label class="label">Enter Project Github Link </label>
+                <input type="text" class="form-control" name="project_github_link" value="<%-projects.project_github_link%>">
+            </div>
+            <div class="col-md-12 mb-4">
+                <textarea class="form-control" name="project_details" required><%-projects.project_details%></textarea>
+            </div>
+            <div class="col-md-12 mb-4 text-center">
+                <button class="btn btn-lg btn-primary">Update</button>  
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,61 @@
+<%- include("navbar.ejs") %>
+<form action="save_education" method="post" enctype="multipart/form-data">
+    <div class="container bg-dark text-white mt-5">
+        <h1>Education Details</h1>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <label class="label">Enter Qualification </label>
+                <input type="text" class="form-control" name="qualification_name" required>
+            </div>
+            <div class="col-md-6 mb-4">
+                <label class="label">Enter University</label>
+                <input type="text" class="form-control" name="university" required>
+            </div>
+            <div class="col-md-6 mb-4">
+                <label class="label">Enter Passing Year</label>
+                <input type="number" class="form-control" name="passing_year">
+            </div>
+            <div class="col-md-6 mb-4">
+                <label class="label">Enter Percentage</label>
+                <input type="number" class="form-control" name="percentage">
+            </div>
+            <div class="col-md-12 mb-4 text-center">
+                <button class="btn btn-lg btn-primary"> Save</button>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<div class="container bg-dark text-white mt-5">
+    <h1>Education List</h1>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered table-dark">
+                <tr>
+                    <th>Action</th>
+                    <th>Sr. NO</th>
+                    <th>Qualification</th>
+                    <th>University</th>
+                    <th>Passing Year</th>
+                    <th>Percentage</th>
+                </tr>
+
+                <% list.map((row, i)=>{ %>
+                    <tr>
+                        <td>
+                            <a href="/admin/edit_education/<%-row.qualification_id%>" ><button class="btn btn-sm btn-success"> <i class="fa fa-pencil"></i> </button></a>
+                            <a href="/admin/delete_education/<%-row.qualification_id%>" onclick="return confirm('Are you Sure')"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button></a>
+                        </td>
+                        <td><%-i+1 %></td>
+                        <td><%-row.qualification_name %></td>
+                        <td><%-row.university %></td>
+                        <td><%-row.passing_year %></td>
+                        <td><%-row.percentage %></td>
+                    </tr>
+
+                <% }) %>
+            </table>
+        </div>
+    </div>
+</div>

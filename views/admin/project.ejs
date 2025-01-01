@@ -1,0 +1,168 @@
+<%- include("navbar.ejs") %>
+<form action="save_project" method="post" enctype="multipart/form-data">
+    <div class="container bg-dark text-white mt-5">
+        <h1>Project Details</h1>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <label class="label">Select Projetc Photo</label>
+                <input type="file" class="form-control" name="project_photo">
+            </div>
+            <div class="col-md-4 mb-4">
+                <label class="label">Enter Project Name </label>
+                <input type="text" class="form-control" name="project_name" required>    
+            </div>
+            <div class="col-md-4 mb-4">
+                <label class="label">Enter Project Github Link </label>
+                <input type="text" class="form-control" name="project_github_link">
+            </div>
+            <div class="col-md-12 mb-4">
+                <textarea class="form-control" name="project_details" required></textarea>
+            </div>
+            <div class="col-md-12 mb-4 text-center">
+                <button class="btn btn-lg btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="container bg-dark text-white mt-5">
+    <h1>Projects List</h1>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered table-dark">
+                <tr>
+                    <th>Action</th>
+                    <th>Sr. NO</th>
+                    <th>Projects Photo</th>
+                    <th>Projetc Name</th>
+                    <th>Projetc Github Link </th>
+                    <th>Projetc Details </th>
+
+                </tr>
+
+                <% projects.map((row, i)=>{ %>
+                    <tr>
+                        <td>
+                            <a href="/admin/edit_project/<%-row.project_id%>" ><button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="fa fa-pencil"></i> </button></a>
+                            <a href="/admin/delete_project/<%-row.project_id%>" onclick="return confirm('Are you Sure')"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button></a>
+            
+                        </td>
+
+                        <!-- <td>
+                            <button class="btn btn-sm btn-success edit-btn" data-bs-toggle="modal" data-bs-target="#editProjectModal"
+                                data-project-id="<%- row.project_id %>" 
+                                data-project-name="<%- row.project_name %>" 
+                                data-project-github="<%- row.project_github_link %>" 
+                                data-project-details="<%- row.project_details %>" 
+                                data-project-image="<%- row.project_photo ? '/public/' + row.project_photo : '/public/default_image.jpg' %>">
+                                <i class="fa fa-pencil"></i>
+                            </button>
+                        
+                            <a href="/admin/delete_project/<%- row.project_id %>" onclick="return confirm('Are you Sure')">
+                                <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+                            </a>
+                        </td> -->
+                        
+                        
+                        
+                        <td><%-i+1 %></td>
+                        <td>
+                            <img src="/<%-row.project_photo %>" width="50px" height="50px">
+                        </td>
+                        <td><%-row.project_name %></td>
+                        <td><%-row.project_github_link %></td>
+                        <td width="40%"><%-row.project_details %></td>
+
+                    </tr>
+
+                <% }) %>
+            </table>
+        </div>
+    </div>
+    
+</div>
+
+<!-- Edit Modal -->
+
+<div class="modal fade" id="editProjectModal" tabindex="-1" aria-labelledby="editProjectModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form action="/admin/save_project" method="POST" enctype="multipart/form-data">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editProjectModalLabel">Edit Project</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" name="project_id" id="editProjectId" />
+  
+            <div class="mb-3">
+              <label for="editProjectName" class="form-label">Project Name</label>
+              <input type="text" class="form-control" name="project_name" id="editProjectName" />
+            </div>
+  
+            <div class="mb-3">
+              <label for="editProjectGithubLink" class="form-label">Project GitHub Link</label>
+              <input type="url" class="form-control" name="project_github_link" id="editProjectGithubLink" />
+            </div>
+  
+            <div class="mb-3">
+              <label for="editProjectDetails" class="form-label">Project Details</label>
+              <textarea class="form-control" name="project_details" id="editProjectDetails"></textarea>
+            </div>
+  
+            <!-- Image Display -->
+            <div class="mb-3">
+              <label for="currentProjectImage" class="form-label">Current Project Image</label>
+              <img id="currentProjectImage" src="" alt="Project Image" class="img-fluid mb-3" style="max-width: 100px;" />
+            </div>
+  
+            <div class="mb-3">
+              <label for="editProjectPhoto" class="form-label">Change Project Photo</label>
+              <input type="file" class="form-control" name="project_photo" id="editProjectPhoto" />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var editButtons = document.querySelectorAll(".edit-btn");
+  
+      editButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+          var projectId = button.getAttribute("data-project-id");
+          var projectName = button.getAttribute("data-project-name");
+          var projectGithub = button.getAttribute("data-project-github");
+          var projectDetails = button.getAttribute("data-project-details");
+          var projectImage = button.getAttribute("data-project-image");
+  
+          // Populate the modal fields with the project data
+          document.getElementById("editProjectId").value = projectId;
+          document.getElementById("editProjectName").value = projectName;
+          document.getElementById("editProjectGithubLink").value = projectGithub;
+          document.getElementById("editProjectDetails").value = projectDetails;
+  
+          // Set the project image
+          document.getElementById("currentProjectImage").src = projectImage;
+        });
+      });
+    });
+  </script>
+
+
+
+
+  
+  
+  
+  
+
+  
+  

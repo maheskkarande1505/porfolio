@@ -1,0 +1,68 @@
+<%- include("navbar.ejs") %>
+
+
+<form action="save_intro" method="post" enctype="multipart/form-data">
+    <div class="container bg-dark text-white mt-5">
+        <h1>Introduction</h1>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <label class="label">Enter Name</label>
+                <input type="text" class="form-control" name="user_name" value="<%-intro.user_name %>">
+            </div>
+            <div class="col-md-4 mb-4">
+                <label class="label">Enter Tagline</label>
+                <input type="text" class="form-control" name="tag_line" value="<%-intro.tag_line %>">
+            </div>
+            <div class="col-md-2 mb-4">
+                <label class="label">Select Photo</label>
+                <input type="file" class="form-control" name="user_photo">
+            </div>
+            <div class="col-md-2 ">
+                <img src="/<%-intro.user_photo %>" width="100px" height="80px">
+            </div>
+            <div class="col-md-4 mb-4">
+                <label class="label">Enter Mobile number</label>
+                <input type="number" class="form-control" name="user_mobile" value="<%-intro.user_mobile %>">
+            </div>
+            <div class="col-md-4 mb-4">
+                <label class="label">Enter Email</label>
+                <input type="email  " class="form-control" name="user_email" value="<%-intro.user_email %>">
+            </div>
+            <div class="col-md-2 mb-3">
+                <label class="label">Resume PDF</label>
+                <input type="file" class="form-control" name="resume" accept=".pdf">
+            </div>
+            <div class="col-md-2 mb-3 mt-4">
+               <a href="/<%-intro.resume %>">
+                    <button type="button" class="btn btn-sm btn-primary">Open Resume</button>
+               </a>
+            </div>
+            <div class="col-md-3 mb-4">
+                <label class="label">Enter Linkedin  Link</label>
+                <input type="url" class="form-control" name="linkdin_link" value="<%-intro.linkdin_link %>">
+            </div>
+            <div class="col-md-3 mb-4">
+                <label class="label">Enter Instagram  Link</label>
+                <input type="url" class="form-control" name="instagram_link" value="<%-intro.instagram_link %>">
+            </div>
+            <div class="col-md-3 mb-4">
+                <label class="label">Enter Facbook  Link</label>
+                <input type="url" class="form-control" name="facebook_link" value="<%-intro.facebook_link %>">
+            </div>
+            <div class="col-md-3 mb-4"> 
+                <label class="label">Enter Twitter  Link</label>
+                <input type="url" class="form-control" name="twitter_link" value="<%-intro.twitter_link %>">
+            </div>
+            
+            <div class="col-md-12  mb-4">
+                <label class="label">About In Brief</label>
+                <textarea class="form-control" rows="5" name="about_details"><%-intro.about_details %></textarea>
+            </div>  
+            <div class="col-md-12  mb-4 text-center">
+                <button class="btn btn-primary">Save Introduction</button>
+            </div>
+            
+        </div>
+    </div>
+</form>
+
