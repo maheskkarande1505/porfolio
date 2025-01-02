@@ -6,7 +6,6 @@ var conn = mysql.createConnection({
     "user":"ub81x7kkmvsbchxi",
     "password":"NZfFXFJxQk8G7pSWRjA4",
     "database":"btizxcn9rilveyavgecw",
-    // "port":"3306"
 
 });
 
